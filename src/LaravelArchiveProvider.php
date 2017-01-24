@@ -13,15 +13,7 @@ class LaravelBackupProvider extends ServiceProvider
      */
     public function boot()
     {
-        /**
-         * Register commands, so you may execute them using the Artisan CLI.
-         */
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                \Yk\LaravelBackup\App\Console\Commands\BackupExport::class,
-                \Yk\LaravelBackup\App\Console\Commands\BackupImport::class,
-            ]);
-        }
+
     }
 
     /**
@@ -32,6 +24,9 @@ class LaravelBackupProvider extends ServiceProvider
     public function register()
     {
 
+        $this->app->bind('Archive', function(){
+            return $this->app->make('Yk\LaravelArchive\Archive');
+        });
 
     }
 }
